@@ -1,0 +1,14 @@
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\bin\Debug\netcoreapp3.0\Tibia.WebCrawler.exe
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\obj\Debug\netcoreapp3.0\Tibia.WebCrawler.csprojAssemblyReference.cache
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\obj\Debug\netcoreapp3.0\Tibia.WebCrawler.AssemblyInfoInputs.cache
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\obj\Debug\netcoreapp3.0\Tibia.WebCrawler.AssemblyInfo.cs
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\bin\Debug\netcoreapp3.0\WebDriver.dll
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\obj\Debug\netcoreapp3.0\Tibia.WebCrawler.csproj.CopyComplete
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\bin\Debug\netcoreapp3.0\Tibia.WebCrawler.deps.json
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\bin\Debug\netcoreapp3.0\Tibia.WebCrawler.runtimeconfig.json
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\bin\Debug\netcoreapp3.0\Tibia.WebCrawler.runtimeconfig.dev.json
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\bin\Debug\netcoreapp3.0\Tibia.WebCrawler.dll
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\bin\Debug\netcoreapp3.0\Tibia.WebCrawler.pdb
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\obj\Debug\netcoreapp3.0\Tibia.WebCrawler.dll
+C:\Users\nadso\source\repos\Tibia.WebCrawler\Tibia.WebCrawler\obj\Debug\netcoreapp3.0\Tibia.WebCrawler.pdb
