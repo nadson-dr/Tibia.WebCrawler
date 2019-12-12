@@ -19,16 +19,21 @@ namespace Tibia.WebCrawler.Models
         {
             try
             {
+                Console.WriteLine("Iniciando inserção/alteração de mundos.");
                 List<World> worlds = new List<World>();
                 using (var driver = new ChromeDriver())
                 {
                     driver.Navigate().GoToUrl("https://www.tibia.com/community/?subtopic=worlds");
+                    Console.WriteLine("Navegador aberto.");
 
                     var container = driver.FindElement(By.Id("worlds"));
+                    Console.WriteLine("Container encontrado.");
 
                     var tables = container.FindElements(By.ClassName("TableContent"));
+                    Console.WriteLine("Tabela encontrada.");
 
                     var trs = tables[2].FindElements(By.TagName("tr"));
+                    Console.WriteLine("Rows encontradas.");
 
                     for (int i = 1; i < trs.Count; i++)
                     {
@@ -39,20 +44,22 @@ namespace Tibia.WebCrawler.Models
                         world.Location = tds[2].Text;
                         world.PvpType = tds[3].Text;
 
+                        Console.WriteLine("Adicionando na lista mundo: " + world.Name);
                         worlds.Add(world);
                     }
                 }
 
                 foreach (var world in worlds)
                 {
+                    Console.WriteLine("Inserindo/Alterando mundo: " + world.Name);
                     InserirAlterarWorld(world);
                 }
 
             }
             catch (Exception ex)
             {
-
-                throw;
+                Console.WriteLine("Erro: " + ex.Message);
+                Console.ReadLine();
             }
         }
 

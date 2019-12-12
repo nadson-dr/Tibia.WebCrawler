@@ -28,6 +28,7 @@ namespace Tibia.WebCrawler.Models
 
         public static void consultarCharacter(List<Character> lstCharacters)
         {
+            Console.WriteLine("Iniciando consulta de personagens.");
             List<SearchAttributes> listaAtributos = new List<SearchAttributes>();
 
             foreach (var info in new Character().GetType().GetProperties())
@@ -37,14 +38,16 @@ namespace Tibia.WebCrawler.Models
                     listaAtributos.Add(new SearchAttributes { text = info.Name });
                 }
             }
-
+            List<Character> lstCharacterPesquisados = new List<Character>();
             try
             {
                 using (var driver = new ChromeDriver())
                 {
+                    
                     foreach (Character ch in lstCharacters)
                     {
                         driver.Navigate().GoToUrl("https://www.tibia.com/community/?subtopic=characters");
+                        Console.WriteLine("Navegador aberto.");
                         Character character = new Character();
 
                         var userNameField = driver.FindElementByName("name");
@@ -52,10 +55,12 @@ namespace Tibia.WebCrawler.Models
 
                         userNameField.SendKeys(ch.Name);
                         submitButton.Click();
+                        Console.WriteLine("Consultando personagem: " + ch.Name);
 
                         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
 
                         var containerCharacters = wait.Until(ExpectedConditions.ElementExists(By.Id("characters")));
+                        Console.WriteLine("Container de personagens encontrado.");
 
                         //var containerCharacters = driver.FindElement(By.Id("characters"));
 
@@ -63,6 +68,8 @@ namespace Tibia.WebCrawler.Models
 
                         if (table != null)
                         {
+                            Console.WriteLine("Tabela de informações encontrada.");
+                            Console.WriteLine("Capturando informações.");
                             foreach (IWebElement tr in table.FindElements(By.TagName("tr")))
                             {
                                 IList<IWebElement> tds = tr.FindElements(By.TagName("td"));
@@ -80,20 +87,35 @@ namespace Tibia.WebCrawler.Models
                                         if (properties != null)
                                         {
                                             properties.SetValue(character, Convert.ChangeType(tds.Last().Text, Type.GetType(properties.PropertyType.FullName)), null);
+                                            
                                         }
                                     }
 
                                 }
                             }
+                            if (!character.Name.Contains("will be deleted"))
+                            {
+                                lstCharacterPesquisados.Add(character);
+                                Console.WriteLine("Count char: " + lstCharacterPesquisados.Count());
+                            }
 
-                            InserirAlterarCharacter(character);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Erro:" + ex.Message);
+                
+            }
+            finally
+            {
+                Console.WriteLine("Inserindo/Alterando personagens.");
+                foreach (Character chPesquisado in lstCharacterPesquisados)
+                {
+                    InserirAlterarCharacter(chPesquisado);
+                }
+                Console.ReadLine();
             }
         }
         public static void InserirAlterarCharacter(Character character)
@@ -157,45 +179,57 @@ namespace Tibia.WebCrawler.Models
             }
 
         }
-        public static void GetCharacters(string world)
+        public static void GetCharacters(List<World> lstWorlds)
         {
             List<Character> lstCharacters = new List<Character>();
+
+            Console.WriteLine("Iniciando consulta de personagens por mundo.");
 
             try
             {
                 using (var driver = new ChromeDriver())
                 {
-                    driver.Navigate().GoToUrl("https://www.tibia.com/community/?subtopic=worlds&world=" + world);
-
-                    var container = driver.FindElement(By.ClassName("Table2"));
-
-                    var tables = container.FindElements(By.TagName("table"));
-
-                    var trs = tables[0].FindElements(By.TagName("tr"));
-
-                    for (int i = 1; i < trs.Count; i++)
+                    foreach (World world in lstWorlds)
                     {
+                        driver.Navigate().GoToUrl("https://www.tibia.com/community/?subtopic=worlds&world=" + world.Name);
+                        Console.WriteLine("Consultando mundo: " + world.Name);
+                        
+                        var container = driver.FindElement(By.ClassName("Table2"));
+                        Console.WriteLine("Container Capturado.");
 
-                        Character character = new Character();
-                        var tds = trs[i].FindElements(By.TagName("td"));
+                        var tables = container.FindElements(By.TagName("table"));
+                        Console.WriteLine("Tabelas Capturadas.");
 
-                        character.Name = tds[0].Text;
-                        character.Level = tds[1].Text;
-                        character.Vocation = tds[2].Text;
-                        character.World = world;
-                        Console.WriteLine("Personagem Adicionado: " + character.Name);
+                        var trs = tables[0].FindElements(By.TagName("tr"));
+                        Console.WriteLine("Rows Capturadas.");
 
-                        lstCharacters.Add(character);
+                        for (int i = 1; i < trs.Count; i++)
+                        {
+
+                            Character character = new Character();
+                            var tds = trs[i].FindElements(By.TagName("td"));
+
+                            character.Name = tds[0].Text;
+                            character.Level = tds[1].Text;
+                            character.Vocation = tds[2].Text;
+                            character.World = world.Name;
+                            Console.WriteLine("Personagem Adicionado: " + character.Name);
+
+                            lstCharacters.Add(character);
+                        }
                     }
                 }
 
                 foreach (var character in lstCharacters)
                 {
+                    Console.WriteLine("Insedrindo Personagem: " + character.Name + " do " + character.World);
                     InserirAlterarCharacter(character);
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Erro: " + ex.Message);
+                Console.ReadLine();
                 throw;
             }
         }
@@ -221,7 +255,8 @@ namespace Tibia.WebCrawler.Models
                               ,[LastLogin]
                               ,[AccountStatus]
                               ,[GuildMembership]
-                          FROM [bd_TibiaRolePlay].[dbo].[Characters] where sex is null";
+                          FROM [bd_TibiaRolePlay].[dbo].[Characters]
+                          where sex is null";
 
                 #endregion
 

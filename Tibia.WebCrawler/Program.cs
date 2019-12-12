@@ -10,20 +10,18 @@ namespace Tibia.WebCrawler
     {
         static void Main(string[] args)
         {
-            //World.InserirWorlds();
-            //var json =JsonConvert.SerializeObject(Character.consultarCharacter());
-            //Console.WriteLine(json);
-
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
+
+            //Console.WriteLine("Capturando Mundos");
+            //World.InserirWorlds();
+
             //List<World> lstWorlds = World.GetWorlds();
 
-            //foreach (World world in lstWorlds)
-            //{
-            //    Console.WriteLine("Consultando mundo: " + world.Name);
-            //    Character.GetCharacters(world.Name);
-            //}
+            //Console.WriteLine("Consultando Mundos");
+            //Character.GetCharacters(lstWorlds);
 
+            Console.WriteLine("Iniciando consulta de personagens");
             List<Character> lstCharacters = Character.GetCharactersFromBD();
 
             Character.consultarCharacter(lstCharacters);
