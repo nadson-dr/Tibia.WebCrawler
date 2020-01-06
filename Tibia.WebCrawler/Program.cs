@@ -21,10 +21,12 @@ namespace Tibia.WebCrawler
             //Console.WriteLine("Consultando Mundos");
             //Character.GetCharacters(lstWorlds);
 
-            Console.WriteLine("Iniciando consulta de personagens");
-            List<Character> lstCharacters = Character.GetCharactersFromBD();
+            //Console.WriteLine("Iniciando consulta de personagens");
+            //List<Character> lstCharacters = Character.GetCharactersFromBD();
 
-            Character.consultarCharacter(lstCharacters);
+            //Character.consultarCharacter(lstCharacters);
+
+            Bosses.ConsultarBosses();
 
             stopWatch.Stop();
             Console.WriteLine("Executado em: " + stopWatch.Elapsed);

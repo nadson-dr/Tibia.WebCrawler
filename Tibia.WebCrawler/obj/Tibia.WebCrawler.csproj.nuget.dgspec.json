@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nadso\\source\\repos\\Tibia.WebCrawler\\Tibia.WebCrawler\\Tibia.WebCrawler.csproj": {}
+    "C:\\Users\\t-nribeiro\\source\\repos\\nribeiro-octoit\\Tibia.WebCrawler\\Tibia.WebCrawler\\Tibia.WebCrawler.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nadso\\source\\repos\\Tibia.WebCrawler\\Tibia.WebCrawler\\Tibia.WebCrawler.csproj": {
+    "C:\\Users\\t-nribeiro\\source\\repos\\nribeiro-octoit\\Tibia.WebCrawler\\Tibia.WebCrawler\\Tibia.WebCrawler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nadso\\source\\repos\\Tibia.WebCrawler\\Tibia.WebCrawler\\Tibia.WebCrawler.csproj",
+        "projectUniqueName": "C:\\Users\\t-nribeiro\\source\\repos\\nribeiro-octoit\\Tibia.WebCrawler\\Tibia.WebCrawler\\Tibia.WebCrawler.csproj",
         "projectName": "Tibia.WebCrawler",
-        "projectPath": "C:\\Users\\nadso\\source\\repos\\Tibia.WebCrawler\\Tibia.WebCrawler\\Tibia.WebCrawler.csproj",
-        "packagesPath": "C:\\Users\\nadso\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nadso\\source\\repos\\Tibia.WebCrawler\\Tibia.WebCrawler\\obj\\",
+        "projectPath": "C:\\Users\\t-nribeiro\\source\\repos\\nribeiro-octoit\\Tibia.WebCrawler\\Tibia.WebCrawler\\Tibia.WebCrawler.csproj",
+        "packagesPath": "C:\\Users\\t-nribeiro\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\t-nribeiro\\source\\repos\\nribeiro-octoit\\Tibia.WebCrawler\\Tibia.WebCrawler\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\nadso\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\t-nribeiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -70,12 +68,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.0.1, 3.0.1]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.0.1, 3.0.1]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.0.0, 3.0.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.0.0, 3.0.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
