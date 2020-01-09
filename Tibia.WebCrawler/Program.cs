@@ -26,6 +26,7 @@ namespace Tibia.WebCrawler
 
             //Character.consultarCharacter(lstCharacters);
 
+            Bosses.ConsultarBosses();
             Boss.consultarBoss();
 
             stopWatch.Stop();
