@@ -47,26 +47,23 @@ namespace Tibia.WebCrawler.Models
                     foreach (Character ch in lstCharacters)
                     {
                         driver.Navigate().GoToUrl("https://www.tibia.com/community/?subtopic=characters");
-                        Console.WriteLine("Navegador aberto.");
                         Character character = new Character();
 
-                        var userNameField = driver.FindElementByName("name");
-                        var submitButton = driver.FindElementByXPath("//input[@name='Submit']");
+                        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+
+                        var userNameField = wait.Until(ExpectedConditions.ElementExists(By.Name("name")));
+                        var submitButton = wait.Until(ExpectedConditions.ElementExists(By.XPath("//input[@name='Submit']"))) ;
 
                         userNameField.SendKeys(ch.Name);
                         submitButton.Click();
                         Console.WriteLine("Consultando personagem: " + ch.Name);
 
-                        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-
                         var containerCharacters = wait.Until(ExpectedConditions.ElementExists(By.Id("characters")));
                         Console.WriteLine("Container de personagens encontrado.");
 
-                        //var containerCharacters = driver.FindElement(By.Id("characters"));
-
                         var table = containerCharacters.FindElements(By.TagName("table")).FirstOrDefault();
 
-                        if (table != null)
+                        if (table != null && !table.Text.Contains("Could not find character"))
                         {
                             Console.WriteLine("Tabela de informações encontrada.");
                             Console.WriteLine("Capturando informações.");
@@ -110,12 +107,19 @@ namespace Tibia.WebCrawler.Models
             }
             finally
             {
-                Console.WriteLine("Inserindo/Alterando personagens.");
+                using (var crudDao = new crudDAO())
+                {
+                    DataTable dt = new DataTable();
+                    dt = crudDao.CreateDataTable(lstCharacterPesquisados);
+
+
+                }
+
                 foreach (Character chPesquisado in lstCharacterPesquisados)
                 {
+                    Console.WriteLine("Inserindo/Alterando personagens: " + chPesquisado.Name);
                     InserirAlterarCharacter(chPesquisado);
                 }
-                Console.ReadLine();
             }
         }
         public static void InserirAlterarCharacter(Character character)
@@ -179,6 +183,49 @@ namespace Tibia.WebCrawler.Models
             }
 
         }
+        public static void InserirAlterarCharacterWorld(Character character)
+        {
+            try
+            {
+                Dictionary<string, object> dicParametros = new Dictionary<string, object>();
+
+                #region " Query + Parâmetros " 
+
+                string query = @"if exists (select * from Characters where Name = @Name)
+	                                    UPDATE [dbo].[Characters]
+	                                       SET [Name] = @Name
+		                                      ,[Vocation] = @Vocation
+		                                      ,[CharacterLevel] = @CharacterLevel
+                                              ,[World] = @World
+	                                     WHERE [Name] = @Name
+                                    else 
+	                                    INSERT INTO [dbo].[Characters]
+				                                    ([Name], [Vocation]
+				                                    ,[CharacterLevel], [World])
+			                                    VALUES
+				                                    (@Name, @Vocation
+				                                    ,@CharacterLevel, @World)";
+
+                dicParametros.Add("@Name", character.Name);
+                dicParametros.Add("@Vocation", character.Vocation);
+                dicParametros.Add("@CharacterLevel", character.Level);
+                dicParametros.Add("@World", character.World);
+
+                #endregion
+
+                using (crudDAO objDAO = new crudDAO())
+                {
+                    objDAO.inserirAlterarExcluir(query, dicParametros);
+                    dicParametros.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
         public static void GetCharacters(List<World> lstWorlds)
         {
             List<Character> lstCharacters = new List<Character>();
@@ -223,7 +270,7 @@ namespace Tibia.WebCrawler.Models
                 foreach (var character in lstCharacters)
                 {
                     Console.WriteLine("Insedrindo Personagem: " + character.Name + " do " + character.World);
-                    InserirAlterarCharacter(character);
+                    InserirAlterarCharacterWorld(character);
                 }
             }
             catch (Exception ex)

@@ -146,11 +146,11 @@ namespace Tibia.WebCrawler.Utils
 
         #region " SqlBulkCopy "
 
-        public void inserirBulkCopy(DataSet dsRetorno, string connectionString)
+        public void inserirBulkCopy(DataSet dsRetorno, string tableName)
         {
             try
             {
-                using (SqlBulkCopy copy = new SqlBulkCopy(connectionString))
+                using (SqlBulkCopy copy = new SqlBulkCopy(Connection.bdConnection))
                 {
                     //Remove o tempo de timeout default de 30 segundos
                     copy.BulkCopyTimeout = 0;
@@ -162,7 +162,7 @@ namespace Tibia.WebCrawler.Utils
                     copy.NotifyAfter = dsRetorno.Tables[0].Rows.Count;
 
                     //Nome da tabela
-                    copy.DestinationTableName = dsRetorno.Tables[0].TableName;
+                    copy.DestinationTableName = tableName;
 
                     foreach (DataColumn column in dsRetorno.Tables[0].Columns)
                     {

@@ -59,7 +59,6 @@ namespace Tibia.WebCrawler.Models
             catch (Exception ex)
             {
                 Console.WriteLine("Erro: " + ex.Message);
-                Console.ReadLine();
             }
         }
 

@@ -13,7 +13,7 @@ namespace Tibia.WebCrawler
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            //Console.WriteLine("Capturando Mundos");
+            Console.WriteLine("Capturando Mundos");
             //World.InserirWorlds();
 
             //List<World> lstWorlds = World.GetWorlds();
@@ -21,14 +21,17 @@ namespace Tibia.WebCrawler
             //Console.WriteLine("Consultando Mundos");
             //Character.GetCharacters(lstWorlds);
 
-            Console.WriteLine("Iniciando consulta de personagens");
-            List<Character> lstCharacters = Character.GetCharactersFromBD();
+            //Console.WriteLine("Iniciando consulta de personagens");
+            //List<Character> lstCharacters = Character.GetCharactersFromBD();
 
-            Character.consultarCharacter(lstCharacters);
+            //Character.consultarCharacter(lstCharacters);
+
+            Boss.consultarBoss();
 
             stopWatch.Stop();
             Console.WriteLine("Executado em: " + stopWatch.Elapsed);
             Console.ReadLine();
+
 
         }
     }
